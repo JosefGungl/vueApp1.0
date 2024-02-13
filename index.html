@@ -9,26 +9,29 @@
     <title>Lift Log</title>
 </head>
 <body class="bg-secondary m-0 ">
-
-
-
 <div class="container bg-secondary-subtle rounded-3 mt-5 mb-5" style="height: 90vh;">
     <div class="mt-2">
         <table class="table">
             <thead>
             <tr>
                 <td class="bg-secondary-subtle">
-                    <div class="row g-3">    <!-- date buttons -->
-                        <div class="col text-end">
+                    <div class="row g-3">
+                        <div class="col text-end align-items-center">
                             <button class="btn border-0"><-- Yesterday</button>
                         </div>
-                        <div class="col text-center">
-                            <button class="btn border-0 btn-date"></button>
+                        <div class="col align-items-center text-center fw-bold fs-2">
+                            Lift Log
                         </div>
-                        <div class="col">
+                        <div class="col align-items-center">
                             <button class="btn border-0">Tomorrow --></button>
                         </div>
+                    </div>
+                    <div class="row g-3">    <!-- date buttons -->
+                        <div class="col text-center align-items-center">
+                            <button class="btn border-0 btn-date"></button>
+                        </div>
                     </div> <!-- date buttons -->
+
                     <form>
                         <div class="row g-3">
                             <div class="col text-end">
@@ -68,7 +71,11 @@
                                                                     <div class="col-sm-4">
                                                                         <label for="exerciseWeight" class="form-label">Weight: </label>
                                                                         <input id="exerciseWeight" type="number" class="form-control" value="">
-                                                                        <div class="form-text">unit is in lbs. </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row g-3 flex-row justify-content-center align-items-center pt-2">
+                                                                    <div class="col-sm-8">
+                                                                        <button type="button" class="btn btn-secondary">New Set</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -76,7 +83,6 @@
                                                     </tr>
                                                     </tbody>
                                                 </table>
-
                                             </div>
                                             <div class="modal-footer justify-content-center">
                                                 <button type="submit" class="btn btn-primary">Save</button>
@@ -100,19 +106,125 @@
 
                         </div> <!-- new exercise and workout name -->
 
-                        <div class="row row-cols-1 row-cols-md-auto"> <!-- exercise card area -->
-                            <div class="col text-center" style="width: 12rem;">
+                        <div class="row g-5 row-cols-1 row-cols-md-auto flex-row justify-content-center align-items-center p-5"> <!-- exercise card area -->
+                            <!-- card 1 -->
+                            <div class="col" style="width: 15rem;">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <div class="card-body text-center">
                                         <h5 class="card-title">Bench Press</h5>
                                         <p>5 reps x 225 lbs.</p>
                                         <p>5 reps x 225 lbs.</p>
                                         <p>4 reps x 225 lbs.</p>
+                                        <button type="button" class="btn btn-edit btn-secondary" data-bs-toggle="modal" data-bs-target="#editExerciseModal">Edit</button>
                                     </div>
                                 </div>
                             </div>
-
+                            <!-- card 2 -->
+                            <div class="col" style="width: 15rem;">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">Incline Bench</h5>
+                                        <p>12 reps x 100 lbs.</p>
+                                        <p>13 reps x 100 lbs.</p>
+                                        <p>10 reps x 100 lbs.</p>
+                                        <button type="button" class="btn btn-edit btn-secondary" data-bs-toggle="modal" data-bs-target="#editExerciseModal">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div> <!-- exercise card area -->
+
+                        <!-- edit exercise modal -->
+                        <div class="modal fade" id="editExerciseModal" tabindex="-1" aria-labelledby="editExerciseLabel" aria-hidden="true">
+                            <form>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="editExerciseLabel">Edit Exercise</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="container-fluid">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-md-7 col-lg-8 flex-column">
+                                                            <div class="row g-3">
+                                                                <!-- exercise name -->
+                                                                <div class="col-sm-10">
+                                                                    <label for="editExerciseName" class="form-label">Exercise Name: </label>
+                                                                    <input id="editExerciseName" type="text" class="form-control" value="Bench Press">
+                                                                    <div class="invalid-feedback">Enter exercise name please.</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row g-3 flex-row justify-content-start align-items-center">
+                                                                <!--set info -->
+                                                                <!-- delete set button -->
+                                                                <div class="col-sm-3">
+                                                                    Set: 1
+                                                                    <button type="button" class="btn btn-light rounded-5">-</button>
+                                                                </div>
+                                                                <!-- reps -->
+                                                                <div class="col-sm-3">
+                                                                    <label for="editSet1Reps" class="form-label">Reps: </label>
+                                                                    <input id="editSet1Reps" type="number" class="form-control" value="5">
+                                                                </div>
+                                                                <!-- weight -->
+                                                                <div class="col-sm-4">
+                                                                    <label for="editSet1Weight" class="form-label">Weight: </label>
+                                                                    <input id="editSet1Weight" type="number" class="form-control" value="225">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row g-3 flex-row justify-content-start align-items-center">
+                                                                <!--set info -->
+                                                                <!-- delete set button -->
+                                                                <div class="col-sm-3">
+                                                                    Set: 2
+                                                                    <button type="button" class="btn btn-light rounded-5">-</button>
+                                                                </div>
+                                                                <!-- reps -->
+                                                                <div class="col-sm-3">
+                                                                    <label for="editSet2Reps" class="form-label">Reps: </label>
+                                                                    <input id="editSet2Reps" type="number" class="form-control" value="5">
+                                                                </div>
+                                                                <!-- weight -->
+                                                                <div class="col-sm-4">
+                                                                    <label for="editSet2Weight" class="form-label">Weight: </label>
+                                                                    <input id="editSet2Weight" type="number" class="form-control" value="225">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row g-3 flex-row justify-content-start align-items-center">
+                                                                <!--set info -->
+                                                                <!-- delete set button -->
+                                                                <div class="col-sm-3">
+                                                                    Set: 3
+                                                                    <button type="button" class="btn btn-light rounded-5">-</button>
+                                                                </div>
+                                                                <!-- reps -->
+                                                                <div class="col-sm-3">
+                                                                    <label for="editSet3Reps" class="form-label">Reps: </label>
+                                                                    <input id="editSet3Reps" type="number" class="form-control" value="4">
+                                                                </div>
+                                                                <!-- weight -->
+                                                                <div class="col-sm-4">
+                                                                    <label for="editSet3Weight" class="form-label">Weight: </label>
+                                                                    <input id="editSet3Weight" type="number" class="form-control" value="225">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
                         <div class="row g-3"> <!-- end workout -->
                             <div class="col text-center">
