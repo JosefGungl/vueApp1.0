@@ -15,6 +15,7 @@ const app = Vue.createApp({
                 {title: 'Bench Press', date: '2/16/2024', sets: 3, reps: [5,5,4], weight: [225,225,225]},
                 {title: 'Incline Bench', date: '2/16/2024', sets: 3, reps: [12,13,10], weight: [100,100,100]},
             ],
+            selectedExercise: '',
         }
     },
     //methods usually events triggered by v-on
@@ -23,7 +24,6 @@ const app = Vue.createApp({
             console.log('1')
             e.preventDefault();
             this.newExercise.date = '2/16/2024';
-            this.newExercise.sets = 1;
             this.exerciseList.push(this.newExercise);
             console.log('2');
             //form clear
@@ -35,6 +35,16 @@ const app = Vue.createApp({
                 weight: [],
             }
         },
+        removeSet: function (exercise){
+          if (exercise.sets > 0){
+              exercise.sets --;
+          }else{
+              exercise.sets = 0;
+          }
+        },
+        sendToModal(exercise) {
+            this.selectedExercise = exercise;
+        }
 
     },
     //values that are updated and cached if dependencies change
