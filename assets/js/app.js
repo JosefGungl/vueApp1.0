@@ -4,6 +4,7 @@ const app = Vue.createApp({
     data: function (){
         return {
             newExercise: {
+                id: '',
                 title: '',
                 date: '',
                 //reps and weight list values connected by set value
@@ -12,28 +13,41 @@ const app = Vue.createApp({
                 weight: [],
             },
             exerciseList: [
-                {title: 'Bench Press', date: '2/16/2024', sets: 3, reps: [5,5,4], weight: [225,225,225]},
-                {title: 'Incline Bench', date: '2/16/2024', sets: 3, reps: [12,13,10], weight: [100,100,100]},
+                {id: '0', title: 'Bench Press', date: '2/16/2024', sets: 3, reps: [5,5,4], weight: [225,225,225]},
+                {id: '1', title: 'Incline Bench', date: '2/16/2024', sets: 3, reps: [12,13,10], weight: [100,100,100]},
             ],
-            selectedExercise: '',
+            dayList: [],
+            selectedEditExercise: {},
         }
     },
     //methods usually events triggered by v-on
     methods: {
-        addExercise(e) {
-            console.log('1')
-            e.preventDefault();
+        addToDayList(){
+            this.dayList.push(this.exerciseList);
+        },
+        addExercise() {
             this.newExercise.date = '2/16/2024';
+            this.newExercise.id = this.exerciseList.length;
             this.exerciseList.push(this.newExercise);
-            console.log('2');
-            //form clear
+            //clear form
             this.newExercise = {
+                id: '',
                 title: '',
                 date: '',
                 sets: 0,
                 reps: [],
                 weight: [],
             }
+        },
+        deleteExercise() {
+            let exercise = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === this.selectedEditExercise.id));
+            this.exerciseList.splice(exercise, 1);
+        },
+        saveExercise() {
+            let exerciseIndex = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === this.selectedEditExercise.id));
+            let exercise = this.exerciseList[exerciseIndex];
+            exercise = this.selectedEditExercise;
+            this.selectedEditExercise = {};
         },
         removeSet: function (exercise){
           if (exercise.sets > 0){
@@ -42,10 +56,19 @@ const app = Vue.createApp({
               exercise.sets = 0;
           }
         },
-        sendToModal(exercise) {
-            this.selectedExercise = exercise;
-        }
-
+        addSet (){
+          this.selectedEditExercise.sets ++;
+        },
+        deleteSet: function (set) {
+            let exerciseIndex = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === this.selectedEditExercise.id));
+            let exercise = this.exerciseList[exerciseIndex];
+            exercise.weight.splice(set,1);
+            exercise.reps.splice(set,1);
+            exercise.sets --;
+        },
+        sendToEditModal(exercise) {
+            this.selectedEditExercise = exercise;
+        },
     },
     //values that are updated and cached if dependencies change
     computed: {
@@ -54,9 +77,22 @@ const app = Vue.createApp({
                 return exercise.date === '2/16/2024';
             })
         },
-
-
     },
+
+    created: function () {
+        if (localStorage.getItem('exerciseList')){
+            this.exerciseList = JSON.parse(localStorage.getItem('exerciseList'));
+        }
+    },
+
+    watch: {
+        exerciseList: {
+            handler() {
+                localStorage.setItem('exerciseList', JSON.stringify(this.exerciseList));
+            },
+            deep: true,
+        }
+    }
 
 
 });
