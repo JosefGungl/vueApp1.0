@@ -10,11 +10,11 @@
 </head>
 <body id="app" class="bg-outer container-fluid">
     <div class="container bg-inner rounded-3 mt-5 mb-5" style="height: 90vh;">
-        <div class="mt-2 bg-inner">
-            <table class="table bg-inner">
-                <thead class="bg-inner">
-                <tr class="bg-inner">
-                    <td class="bg-inner">
+        <div class="mt-2">
+            <table class="table">
+                <thead class="">
+                <tr class="">
+                    <td class="bg-inner border-0">
                         <div class="row g-3">
                             <div class="col text-end align-items-center">
                                 <button class="btn border-0"><-- Yesterday</button>
@@ -28,7 +28,8 @@
                         </div><!-- yesterday/title/tomorrow buttons -->
                         <div class="row g-3">    <!-- date -->
                             <div class="col text-center align-items-center">
-                                <button class="btn border-0 btn-date"></button>
+                                <button class="btn border-0 btn-date">
+                                </button>
                             </div>
                         </div> <!-- date -->
                             <div class="row g-3">
@@ -41,7 +42,7 @@
                                 <div class="modal fade" id="newExerciseModal" tabindex="-1" aria-labelledby="newExerciseLabel" aria-hidden="true">
                                     <form @submit.prevent="addExercise">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
+                                            <div class="modal-content bg-inner">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="newExerciseLabel">New Exercise</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -126,16 +127,16 @@
                             <div class="modal fade" id="editExerciseModal" tabindex="-1" aria-labelledby="editExerciseLabel" aria-hidden="true">
                                 <form >
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
+                                        <div class="modal-content bg-inner">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="editExerciseLabel">Edit Exercise</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="modal-body justify-content-center">
                                                 <table class="container-fluid">
                                                     <tbody>
                                                     <tr>
-                                                        <td>
+                                                        <td class="justify-content-center">
                                                             <div class="col-md-7 col-lg-8 flex-column">
                                                                 <div class="row g-3">
                                                                     <!-- exercise name -->
@@ -151,22 +152,27 @@
                                                                     <div class="col-sm-3">
                                                                         Set: {{i + 1}}
                                                                         <!-- TODO: fix closing modal -->
-                                                                        <button @click="deleteSet(i)" type="button" class="btn btn-light rounded-5">-</button>
+                                                                        <button class="btn"><i @click="deleteSet(i)" type="button" class="fa-solid fa-circle-minus fa-xl"></i></button>
                                                                     </div>
                                                                     <!-- reps -->
                                                                     <div class="col-sm-3">
                                                                         <label for="editSetReps" class="form-label">Reps: </label>
-                                                                        <input id="editSetReps" type="number" class="form-control" v-bind:value="selectedEditExercise.reps[i]">
+                                                                        <input id="editSetReps" type="number" class="form-control" v-model="selectedEditExercise.reps[i]">
                                                                     </div>
                                                                     <!-- weight -->
                                                                     <div class="col-sm-4">
                                                                         <label for="editSetWeight" class="form-label">Weight: </label>
-                                                                        <input id="editSetWeight" type="number" class="form-control" v-bind:value="selectedEditExercise.weight[i]">
+                                                                        <input id="editSetWeight" type="number" class="form-control" v-model="selectedEditExercise.weight[i]">
                                                                     </div>
                                                                 </div>
-                                                                <div class="row g-3 flex-row justify-content-start align-items-center">
+                                                                <div class="row g-3 flex-row">
+                                                                    <div class="col-sm-3 pt-3">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row g-3 flex-row justify-content-center align-items-center">
                                                                     <div class="col-sm-3">
-                                                                        <button type="button" @click="addSet" class="btn btn-light rounded-5">+</button>
+                                                                        <button class="btn"><i type="button" @click="addSet" class="fa-solid fa-circle-plus fa-2xl"></i></button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -192,7 +198,7 @@
                                 <div class="modal fade" id="endWorkout" tabindex="-1" aria-labelledby="endWorkoutModal" aria-hidden="true">
                                     <form>
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
+                                            <div class="modal-content bg-inner">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="endWorkoutLabel">How did your workout go?</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -259,5 +265,6 @@
     // start the app after all the other JS has been loaded
     app.mount('#app');
 </script>
+<script src="https://kit.fontawesome.com/35954a5375.js" crossorigin="anonymous"></script>
 </body>
 </html>

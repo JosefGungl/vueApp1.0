@@ -44,9 +44,6 @@ const app = Vue.createApp({
             this.exerciseList.splice(exercise, 1);
         },
         saveExercise() {
-            let exerciseIndex = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === this.selectedEditExercise.id));
-            let exercise = this.exerciseList[exerciseIndex];
-            exercise = this.selectedEditExercise;
             this.selectedEditExercise = {};
         },
         removeSet: function (exercise){
