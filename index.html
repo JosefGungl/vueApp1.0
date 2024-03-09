@@ -37,65 +37,10 @@
                                     <button type="button" class="btn btn-new-exercise btn-secondary" data-bs-toggle="modal" data-bs-target="#newExerciseModal">Add new Exercise</button>
                                 </div>
 
-
                                 <!-- new exercise modal -->
-                                <div class="modal fade" id="newExerciseModal" tabindex="-1" aria-labelledby="newExerciseLabel" aria-hidden="true">
-                                    <form @submit.prevent="addExercise">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content bg-inner">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="newExerciseLabel">New Exercise</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="container-fluid">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="col-md-7 col-lg-8">
-                                                                    <div class="row g-3">
-                                                                        <!-- exercise name -->
-                                                                        <div class="col-sm-8">
-                                                                            <label for="exerciseName" class="form-label">Exercise Name: </label>
-                                                                            <input id="exerciseName" type="text" class="form-control" value="" v-model="newExercise.title" required>
-                                                                            <div class="invalid-feedback">Enter exercise name please.</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- TODO: fix modal closing if required field is empty-->
-                                                                    <div v-for="(sets, i) in newExercise.sets" class="row g-3">
-                                                                        <!--set info -->
-                                                                        <!-- reps -->
-                                                                        <div class="col-sm-4">
-                                                                            <label for="exerciseReps" class="form-label">Reps: </label>
-                                                                            <input id="exerciseReps" type="number" class="form-control" value="" v-model="newExercise.reps[i]">
-                                                                        </div>
-                                                                        <!-- weight -->
-                                                                        <div class="col-sm-4">
-                                                                            <label for="exerciseWeight" class="form-label">Weight: </label>
-                                                                            <input id="exerciseWeight" type="number" class="form-control" value="" v-model="newExercise.weight[i]">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row g-3 flex-row justify-content-start align-items-center pt-2">
-                                                                        <div class="col-sm-auto">
-                                                                            <button type="button" v-on:click="newExercise.sets ++" class="btn btn-secondary">Add Set</button>
-                                                                        </div>
-                                                                        <div class="col-sm-auto">
-                                                                            <button type="button" v-if="newExercise.sets !== 0" @click="removeSet(newExercise)" class="btn btn-secondary">Remove Set</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer justify-content-center">
-                                                    <button type="submit" class="btn btn-save btn-primary" data-bs-dismiss="modal">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                <add-exercise-modal :length="exerciseList.length" id="newExerciseModal"
+                                                    @add-exercise="addExercise"
+                                ></add-exercise-modal>
 
                                 <div class="col"></div>
                                 <div class="col">
@@ -124,124 +69,21 @@
                             </div>
 
                             <!-- edit exercise modal -->
-                            <div class="modal fade" id="editExerciseModal" tabindex="-1" aria-labelledby="editExerciseLabel" aria-hidden="true">
-                                <form >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content bg-inner">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="editExerciseLabel">Edit Exercise</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body justify-content-center">
-                                                <table class="container-fluid">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="justify-content-center">
-                                                            <div class="col-md-7 col-lg-8 flex-column">
-                                                                <div class="row g-3">
-                                                                    <!-- exercise name -->
-                                                                    <div class="col-sm-10">
-                                                                        <label for="editExerciseName" class="form-label">Exercise Name: </label>
-                                                                        <input id="editExerciseName" type="text" class="form-control" :value="selectedEditExercise.title">
-                                                                        <div class="invalid-feedback">Enter exercise name please.</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div v-for="(sets, i) in selectedEditExercise.sets" :key="selectedEditExercise.title" class="row g-3 flex-row justify-content-start align-items-center">
-                                                                    <!--set info -->
-                                                                    <!-- delete set button -->
-                                                                    <div class="col-sm-3">
-                                                                        Set: {{i + 1}}
-                                                                        <!-- TODO: fix closing modal -->
-                                                                        <button class="btn"><i @click="deleteSet(i)" type="button" class="fa-solid fa-circle-minus fa-xl"></i></button>
-                                                                    </div>
-                                                                    <!-- reps -->
-                                                                    <div class="col-sm-3">
-                                                                        <label for="editSetReps" class="form-label">Reps: </label>
-                                                                        <input id="editSetReps" type="number" class="form-control" v-model="selectedEditExercise.reps[i]">
-                                                                    </div>
-                                                                    <!-- weight -->
-                                                                    <div class="col-sm-4">
-                                                                        <label for="editSetWeight" class="form-label">Weight: </label>
-                                                                        <input id="editSetWeight" type="number" class="form-control" v-model="selectedEditExercise.weight[i]">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3 flex-row">
-                                                                    <div class="col-sm-3 pt-3">
-
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3 flex-row justify-content-center align-items-center">
-                                                                    <div class="col-sm-3">
-                                                                        <button class="btn"><i type="button" @click="addSet" class="fa-solid fa-circle-plus fa-2xl"></i></button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer justify-content-center">
-                                                <button type="submit" @click="saveExercise" class="btn btn-save btn-primary">Save</button>
-                                                <button type="submit" @click="deleteExercise" class="btn btn-danger">Delete Exercise</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <edit-exercise-modal id="editExerciseModal" :exercise="selectedEditExercise"
+                                                 @add-set="addSet"
+                                                 @delete-set="deleteSet"
+                                                 @save-exercise="saveExercise"
+                                                 @delete-exercise="deleteExercise"
+                            ></edit-exercise-modal>
 
                             <div class="row g-3"> <!-- end workout -->
                                 <div class="col text-center">
                                     <button type="submit" class="btn btn-end-workout btn-secondary p-5 pt-0 pb-0" data-bs-toggle="modal" data-bs-target="#endWorkout">End Workout</button>
                                 </div>
                                 <!-- end workout modal -->
-                                <div class="modal fade" id="endWorkout" tabindex="-1" aria-labelledby="endWorkoutModal" aria-hidden="true">
-                                    <form>
-                                        <div class="modal-dialog">
-                                            <div class="modal-content bg-inner">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="endWorkoutLabel">How did your workout go?</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="container-fluid">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="col-md-7 col-lg-8">
-                                                                    <div class="row g-3">
-                                                                        <div class="col-sm-12">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <label for="workout-rating" class="form-label">Workout rating:</label>
-                                                                                </div>
-                                                                                <div class="col slider-screen">0</div>
-                                                                            </div>
-
-                                                                            <input id="workout-rating" type="range" class="form-range"
-                                                                                   min="0" max="5" step="0.5" value="0">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row g-3">
-                                                                        <!-- review box -->
-                                                                        <div class="col-sm-12">
-                                                                            <label for="review" class="form-label">review:</label>
-                                                                            <textarea id="review" class="form-control"></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer justify-content-center">
-                                                    <button type="submit" @click="addToDayList" class="btn btn-save btn-primary">Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                <end-workout-modal id="endWorkoutModal"
+                                                   @add-to-day-list="addToDayList"
+                                ></end-workout-modal>
                             </div>
                          <!-- end workout -->
                     </td>
@@ -254,17 +96,17 @@
 
 
 
-
-
-
+<script src="https://kit.fontawesome.com/35954a5375.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/components/editExerciseModal.js"></script>
+<script src="assets/js/components/addExerciseModal.js"></script>
+<script src="assets/js/components/endWorkoutModal.js"></script>
 <script>
     // start the app after all the other JS has been loaded
     app.mount('#app');
 </script>
-<script src="https://kit.fontawesome.com/35954a5375.js" crossorigin="anonymous"></script>
 </body>
 </html>
