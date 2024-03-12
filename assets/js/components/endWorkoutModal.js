@@ -13,10 +13,6 @@ app.component('EndWorkoutModal', {
         },
     },
 
-    addToDayList(){
-        this.dayList.push(this.exerciseList);
-    },
-
     template: `
       <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + 'Title'" aria-hidden="true">
         <form>

@@ -3,11 +3,13 @@ const app = Vue.createApp({
     //all data for the app, must return an object
     data: function (){
         return {
+            currentDay: new Date,
             exerciseList: [
-                {id: '0', title: 'Bench Press', date: '2/16/2024', sets: 3, reps: [5,5,4], weight: [225,225,225]},
-                {id: '1', title: 'Incline Bench', date: '2/16/2024', sets: 3, reps: [12,13,10], weight: [100,100,100]},
+                //example data
+                {id: '0', title: 'Bench Press', date: new Date('2024/02/16'), sets: 3, reps: [5,5,4], weight: [225,225,225]},
+                {id: '1', title: 'Incline Bench', date: new Date('2024/02/16'), sets: 3, reps: [12,13,10], weight: [100,100,100]},
             ],
-            dayList: [],
+            dayList:[],
             selectedEditExercise: {},
         }
     },
@@ -37,25 +39,34 @@ const app = Vue.createApp({
         addToDayList(){
             this.dayList.push(this.exerciseList);
         },
-
-        //methods
         sendToEditModal(exercise) {
             this.selectedEditExercise = exercise;
         },
-    },
-    //values that are updated and cached if dependencies change
-    computed: {
-        dayExerciseList(){
-            return this.exerciseList.filter(function (exercise){
-                return exercise.date === '2/16/2024';
-            })
+        editDate(edit){
+            //TODO: increment/decrement currently selected date
+            },
+        getCurrentDate(){
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            return today;
+        },
+        updateDate(newDate){
+            this.currentDay = newDate;
+            console.log(newDate);
+            let temp = this.exerciseList;
+            console.log(this.dayList);
         },
     },
+
 
     created: function () {
         if (localStorage.getItem('exerciseList')){
             this.exerciseList = JSON.parse(localStorage.getItem('exerciseList'));
         }
+        this.currentDay = this.getCurrentDate();
     },
 
     watch: {
@@ -64,6 +75,11 @@ const app = Vue.createApp({
                 localStorage.setItem('exerciseList', JSON.stringify(this.exerciseList));
             },
             deep: true,
+        },
+        currentDay: {
+            handler() {
+                this.dayList = this.exerciseList.filter((x) => x.date.toISOString().split('T')[0] === this.currentDay);
+            }
         }
     }
 });

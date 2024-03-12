@@ -25,6 +25,7 @@ app.component('EditExerciseModal', {
             this.$emit('delete-exercise');
         },
     },
+    //TODO: Fix modal closing on last set being removed
 
     template: `
       <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + exercise.title" aria-hidden="true">
@@ -54,7 +55,6 @@ app.component('EditExerciseModal', {
                           <!-- delete set button -->
                           <div class="col-sm-3">
                             Set: {{i + 1}}
-                            <!-- TODO: fix closing modal -->
                             <button class="btn"><i @click="deleteSet(i)" type="button" class="fa-solid fa-circle-minus fa-xl"></i></button>
                           </div>
                           <!-- reps -->

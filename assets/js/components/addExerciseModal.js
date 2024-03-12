@@ -52,6 +52,8 @@ app.component('AddExerciseModal', {
         },
     },
 
+    //TODO: Fix modal closing on last set being removed
+    //TODO: fix modal closing if required field is empty
     template: `
       <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + 'Title'" aria-hidden="true">
         <form @submit.prevent="addExercise">
@@ -74,7 +76,6 @@ app.component('AddExerciseModal', {
                             <div class="invalid-feedback">Enter exercise name please.</div>
                           </div>
                         </div>
-                        <!-- TODO: fix modal closing if required field is empty-->
                         <div v-for="(sets, i) in newExercise.sets" class="row g-3">
                           <div class="col-sm-4">
                             <label for="exerciseReps" class="form-label">Reps: </label>
