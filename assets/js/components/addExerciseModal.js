@@ -21,14 +21,12 @@ app.component('AddExerciseModal', {
            type: String,
            required: true,
        },
-       listLength: Number,
+
     },
 
     methods: {
        addExercise(e) {
-           console.log(this.listLength);
            this.$emit('add-exercise', this.newExercise);
-           this.newExercise.id = String(this.listLength);
            //clear form
            this.newExercise = {
                id: '',

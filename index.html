@@ -26,7 +26,6 @@
 
                                 <!-- new exercise modal -->
                                 <add-exercise-modal id="newExerciseModal"
-                                                    :listLength="exerciseList.length + 1"
                                                     @add-exercise="addExercise"
                                 ></add-exercise-modal>
 
@@ -47,7 +46,7 @@
                                 <!-- exercise card  -->
                                 <div v-for="(exercise, i) in dayList" :key="exercise.id" class="col" style="width: 15rem;">
                                     <exercise-card id="exerciseCard"
-                                                   :exercise="exerciseList[i]"
+                                                   :exercise="exercise"
                                                    @to-edit="sendToEditModal"
                                     ></exercise-card>
                                 </div>
@@ -64,7 +63,7 @@
 
                             <div class="row g-3"> <!-- end workout -->
                                 <div class="col text-center">
-                                    <button type="submit" class="btn btn-end-workout btn-secondary p-5 pt-0 pb-0" data-bs-toggle="modal" data-bs-target="#endWorkout">End Workout</button>
+                                    <button type="submit" class="btn btn-end-workout btn-secondary p-5 pt-0 pb-0" data-bs-toggle="modal" data-bs-target="#endWorkoutModal">End Workout</button>
                                 </div>
                                 <!-- end workout modal -->
                                 <end-workout-modal id="endWorkoutModal"

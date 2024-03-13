@@ -15,7 +15,7 @@ app.component('EndWorkoutModal', {
 
     template: `
       <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + 'Title'" aria-hidden="true">
-        <form>
+        <form @submit.prevent="addToDayList">
           <div class="modal-dialog">
             <div class="modal-content bg-inner">
               <div class="modal-header">

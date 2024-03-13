@@ -21,8 +21,8 @@ app.component('EditExerciseModal', {
         saveExercise(){
             this.$emit('save-exercise');
         },
-        deleteExercise(){
-            this.$emit('delete-exercise');
+        deleteExercise(id){
+            this.$emit('delete-exercise', id);
         },
     },
     //TODO: Fix modal closing on last set being removed
@@ -86,7 +86,7 @@ app.component('EditExerciseModal', {
               </div>
               <div class="modal-footer justify-content-center">
                 <button type="submit" @click="saveExercise" class="btn btn-save btn-primary" data-bs-dismiss="modal">Save</button>
-                <button type="submit" @click="deleteExercise" class="btn btn-danger" data-bs-dismiss="modal">Delete Exercise</button>
+                <button type="submit" @click="deleteExercise(exercise.id)" class="btn btn-danger" data-bs-dismiss="modal">Delete Exercise</button>
               </div>
             </div>
           </div>

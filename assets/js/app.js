@@ -17,17 +17,18 @@ const app = Vue.createApp({
     methods: {
         //emitted methods
         addExercise(newExercise) {
-            let addDay = new Date(this.currentDay);
-            let dd = String(addDay.getDate()).padStart(2, '0');
-            let mm = String(addDay.getMonth() + 1).padStart(2, '0');
-            let yyyy = addDay.getFullYear();
-            addDay = yyyy + '-' + mm + '-' + dd;
-            newExercise.date = new Date(addDay);
+            newExercise.id = String(this.exerciseList.length);
+            newExercise.date = new Date(this.currentDay);
           this.exerciseList.push(newExercise);
+          this.dayList.push(newExercise);
         },
-        deleteExercise() {
-            let exercise = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === this.selectedEditExercise.id));
+        deleteExercise(exerciseId) { //TODO: bug here
+            let exercise = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === exerciseId));
+            console.log(exerciseId);
+            console.log(exercise);
+            console.log(this.exerciseList[exercise]);
             this.exerciseList.splice(exercise, 1);
+            this.dayList.splice(exercise,1);
         },
         saveExercise() {
             this.selectedEditExercise = {};
@@ -49,7 +50,7 @@ const app = Vue.createApp({
             this.selectedEditExercise = exercise;
         },
         editDate(edit){
-            //TODO: increment/decrement currently selected date
+            //TODO: increment/decrement currently selected date from buttons
             },
         getCurrentDate(){
             let today = new Date();
