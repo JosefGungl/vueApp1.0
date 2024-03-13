@@ -5,7 +5,7 @@ app.component('AddExerciseModal', {
            newExercise: {
                id: '',
                title: '',
-               date: '',
+               date: new Date,
                //reps and weight list values connected by set value
                sets: 0,
                reps: [],
@@ -21,22 +21,19 @@ app.component('AddExerciseModal', {
            type: String,
            required: true,
        },
-       length: {
-           type: Number,
-           required: true,
-       }
+       listLength: Number,
     },
 
     methods: {
        addExercise(e) {
+           console.log(this.listLength);
            this.$emit('add-exercise', this.newExercise);
-           this.newExercise.date = new Date().toLocaleDateString();
-           this.newExercise.id = length + 1;
+           this.newExercise.id = String(this.listLength);
            //clear form
            this.newExercise = {
                id: '',
                title: '',
-               date: '',
+               date: new Date,
                //reps and weight correlate by sets#
                sets: 0,
                reps: [],

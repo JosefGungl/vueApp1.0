@@ -17,6 +17,12 @@ const app = Vue.createApp({
     methods: {
         //emitted methods
         addExercise(newExercise) {
+            let addDay = new Date(this.currentDay);
+            let dd = String(addDay.getDate()).padStart(2, '0');
+            let mm = String(addDay.getMonth() + 1).padStart(2, '0');
+            let yyyy = addDay.getFullYear();
+            addDay = yyyy + '-' + mm + '-' + dd;
+            newExercise.date = new Date(addDay);
           this.exerciseList.push(newExercise);
         },
         deleteExercise() {
@@ -55,9 +61,6 @@ const app = Vue.createApp({
         },
         updateDate(newDate){
             this.currentDay = newDate;
-            console.log(newDate);
-            let temp = this.exerciseList;
-            console.log(this.dayList);
         },
     },
 
