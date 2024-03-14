@@ -50,12 +50,14 @@ app.component('EditExerciseModal', {
                             <div class="invalid-feedback">Enter exercise name please.</div>
                           </div>
                         </div>
-                        <div v-for="(sets, i) in exercise.sets" :key="exercise.title" class="row g-3 flex-row justify-content-start align-items-center">
+                        <div v-for="(sets, i) in exercise.sets" :key="exercise.title"
+                             class="row g-3 flex-row justify-content-start align-items-center">
                           <!--set info -->
                           <!-- delete set button -->
                           <div class="col-sm-3">
-                            Set: {{i + 1}}
-                            <button class="btn"><i @click="deleteSet(i)" type="button" class="fa-solid fa-circle-minus fa-xl"></i></button>
+                            Set: {{ i + 1 }}
+                            <button class="btn"><i @click="deleteSet(i)" type="button"
+                                                   class="fa-solid fa-circle-minus fa-xl"></i></button>
                           </div>
                           <!-- reps -->
                           <div class="col-sm-3">
@@ -75,7 +77,8 @@ app.component('EditExerciseModal', {
                         </div>
                         <div class="row g-3 flex-row justify-content-center align-items-center">
                           <div class="col-sm-3">
-                            <button class="btn"><i type="button" @click="addSet" class="fa-solid fa-circle-plus fa-2xl"></i></button>
+                            <button class="btn"><i type="button" @click="addSet"
+                                                   class="fa-solid fa-circle-plus fa-2xl"></i></button>
                           </div>
                         </div>
                       </div>
@@ -85,8 +88,12 @@ app.component('EditExerciseModal', {
                 </table>
               </div>
               <div class="modal-footer justify-content-center">
-                <button type="submit" @click="saveExercise" class="btn btn-save btn-primary" data-bs-dismiss="modal">Save</button>
-                <button type="submit" @click="deleteExercise(exercise.id)" class="btn btn-danger" data-bs-dismiss="modal">Delete Exercise</button>
+                <button type="submit" @click="saveExercise" class="btn btn-save btn-primary" data-bs-dismiss="modal">
+                  Save
+                </button>
+                <button type="submit" @click="deleteExercise(exercise.id)" class="btn btn-danger"
+                        data-bs-dismiss="modal">Delete Exercise
+                </button>
               </div>
             </div>
           </div>

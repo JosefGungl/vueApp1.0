@@ -1,7 +1,7 @@
 app.component('DateBar', {
 
-    data: function (){
-        return{
+    data: function () {
+        return {
             newDate: new Date,
         }
     },
@@ -13,30 +13,30 @@ app.component('DateBar', {
         },
     },
 
-    emits:['edit-date', 'update-date'],
+    emits: ['edit-date', 'update-date'],
     methods: {
-        editDate(edit){
+        editDate(edit) {
             this.$emit('edit-date', edit);
         },
-        updateDate(){
-          this.$emit('update-date', this.newDate);
+        updateDate() {
+            this.$emit('update-date', this.newDate);
         },
     },
 
-    created: function (){
-      this.newDate = this.date;
+    created: function () {
+        this.newDate = this.date;
     },
 
     template: `
       <div class="row g-3">
         <div class="col text-end align-items-center">
-          <button class="btn border-0" @click="editDate(-1)" ><-- Yesterday</button>
+          <button class="btn border-0" @click="editDate(-1)"><-- Yesterday</button>
         </div>
         <div class="col align-items-center text-center fw-bold fs-2">
           Lift Log
         </div>
         <div class="col align-items-center">
-          <button class="btn border-0" @click="editDate(1)" >Tomorrow --></button>
+          <button class="btn border-0" @click="editDate(1)">Tomorrow --></button>
         </div>
       </div>
       <!-- today's date -->
