@@ -44,7 +44,7 @@
 
                             <div class="row g-5 row-cols-1 row-cols-md-auto flex-row justify-content-center align-items-center p-5">
                                 <!-- exercise card  -->
-                                <div v-for="(exercise, i) in dayList" :key="exercise.id" class="col" style="width: 15rem;">
+                                <div v-for="(exercise, i) in dayList" :key="dayList.length" class="col" style="width: 15rem;">
                                     <exercise-card id="exerciseCard"
                                                    :exercise="exercise"
                                                    @to-edit="sendToEditModal"
