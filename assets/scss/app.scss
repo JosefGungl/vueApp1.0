@@ -1,0 +1,33 @@
+@import "bootstrap";
+
+// overrides
+$primary: #689689;
+$bg-inner: #faf3dd;
+$bg-outer: #5e503f;
+
+
+.btn-new-exercise:hover {
+  --bs-bg-opacity: 1;
+  background-color: $primary !important;
+}
+.btn-save {
+  --bs-bg-opacity: 1;
+  background-color: $primary !important;
+}
+.btn-end-workout:hover {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-inner {
+  --bs-bg-opacity: 1;
+  background-color: $bg-inner !important;
+}
+.bg-outer {
+  --bs-bg-opacity: 1;
+  background-color: $bg-outer !important;
+}
+
+.q-rating__icon-container {
+  display: inline-block;
+}

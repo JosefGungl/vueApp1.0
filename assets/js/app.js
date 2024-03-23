@@ -12,7 +12,8 @@ const app = Vue.createApp({
                     date: '2024-02-16',
                     sets: 3,
                     reps: [5, 5, 4],
-                    weight: [225, 225, 225]
+                    weight: [225, 225, 225],
+                    finished: false
                 },
                 {
                     id: '1',
@@ -20,8 +21,12 @@ const app = Vue.createApp({
                     date: '2024-02-16',
                     sets: 3,
                     reps: [12, 13, 10],
-                    weight: [100, 100, 100]
+                    weight: [100, 100, 100],
+                    finished: false
                 },
+            ],
+            reviewList: [
+
             ],
             dayList: [],
             selectedEditExercise: {},
@@ -54,8 +59,9 @@ const app = Vue.createApp({
             exercise.reps.splice(set, 1);
             exercise.sets--;
         },
-        addToDayList() {
-            this.dayList.push(this.exerciseList);
+        addReview(newReview) {
+            newReview.date = this.currentDay;
+            this.reviewList.push(newReview);
         },
         sendToEditModal(exercise) {
             this.selectedEditExercise = exercise;

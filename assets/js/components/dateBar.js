@@ -29,14 +29,14 @@ app.component('DateBar', {
 
     template: `
       <div class="row g-3">
-        <div class="col text-end align-items-center">
-          <button class="btn border-0" @click="editDate(-1)"><-- Yesterday</button>
+        <div class="col text-right align-items-center">
+          <q-btn flat no-caps @click="editDate(-1)"><-- Yesterday</q-btn>
         </div>
         <div class="col align-items-center text-center fw-bold fs-2">
           Lift Log
         </div>
         <div class="col align-items-center">
-          <button class="btn border-0" @click="editDate(1)">Tomorrow --></button>
+          <q-btn flat no-caps @click="editDate(1)">Tomorrow --></q-btn>
         </div>
       </div>
       <!-- today's date -->

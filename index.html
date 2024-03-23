@@ -5,77 +5,69 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <link href="assets/dist/css/app.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
+          type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2.15.1/dist/quasar.prod.css" rel="stylesheet" type="text/css">
     <title>Lift Log</title>
 </head>
 <body id="app" class="bg-outer container-fluid">
-<div class="container bg-inner rounded-3 mt-5 mb-5" style="height: 90vh;">
+<div class="container bg-inner rounded-3 q-mt-xl q-mb-xl" style="height: 90vh;">
     <div class="mt-2">
-        <table class="table">
-            <thead class="">
-            <tr class="">
-                <td class="bg-inner border-0">
-                    <date-bar :date="currentDay"
-                              @edit-date="editDate"
-                              @update-date="updateDate"
-                    ></date-bar>
-                    <div class="row g-3">
-                        <div class="col text-end">
-                            <button type="button" class="btn btn-new-exercise btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#newExerciseModal">Add new Exercise
-                            </button>
-                        </div>
+        <date-bar :date="currentDay"
+                  @edit-date="editDate"
+                  @update-date="updateDate"
+        ></date-bar>
+        <div class="row g-2">
+            <div class="col text-right">
+                <q-btn no-caps color="grey" class="btn-new-exercise" data-bs-toggle="modal"
+                       data-bs-target="#newExerciseModal">Add New Exercise
+                </q-btn>
+            </div>
 
-                        <add-exercise-modal id="newExerciseModal"
-                                            @add-exercise="addExercise"
-                        ></add-exercise-modal>
+            <add-exercise-modal id="newExerciseModal" @add-exercise="addExercise"></add-exercise-modal>
 
-                        <div class="col"></div>
-                        <div class="col">
-                            <div class="row p-0">
-                                <div class="col-sm-auto align-self-center p-0 text-start">
-                                    <label for="workout-name" class="form-label">Today's workout is:</label>
-                                </div>
-                                <div class="col-sm-4 text-start ">
-                                    <input type="text" class="form-control" id="workout-name" value="">
-                                </div>
-                            </div>
-                        </div>
+            <div class="col"></div>
+            <div class="col">
+                <div class="row q-pa-none">
+                    <div class="col-sm-auto align-self-center q-pt-none text-left">
+                        <label for="workout-name" class="form-label">Today's workout is:</label>
                     </div>
-
-                    <div class="row g-5 row-cols-1 row-cols-md-auto flex-row justify-content-center align-items-center p-5">
-                        <div v-for="(exercise, i) in dayList" :key="dayList" class="col" style="width: 15rem;">
-                            <exercise-card id="exerciseCard"
-                                           :exercise="exercise"
-                                           @to-edit="sendToEditModal"
-                            ></exercise-card>
-                        </div>
+                    <div class="col-4 column justify-center">
+                        <input type="text" class="form-control" id="workout-name" value="">
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <edit-exercise-modal id="editExerciseModal"
-                                         :exercise="selectedEditExercise"
-                                         @add-set="addSet"
-                                         @delete-set="deleteSet"
-                                         @save-exercise="saveExercise"
-                                         @delete-exercise="deleteExercise"
-                    ></edit-exercise-modal>
+        <div class="row g-5 row-cols-1 row-cols-md-auto flex-row justify-content-center align-items-center q-pa-xl">
+            <div v-for="(exercise, i) in dayList" :key="dayList" class="col">
+                <exercise-card id="exerciseCard"
+                               :exercise="exercise"
+                               @to-edit="sendToEditModal"
+                ></exercise-card>
+            </div>
+        </div>
 
-                    <div class="row g-3">
-                        <div class="col text-center">
-                            <button type="submit" class="btn btn-end-workout btn-secondary p-5 pt-0 pb-0"
-                                    data-bs-toggle="modal" data-bs-target="#endWorkoutModal">End Workout
-                            </button>
-                        </div>
+        <edit-exercise-modal id="editExerciseModal"
+                             :exercise="selectedEditExercise"
+                             @add-set="addSet"
+                             @delete-set="deleteSet"
+                             @save-exercise="saveExercise"
+                             @delete-exercise="deleteExercise"
+        ></edit-exercise-modal>
 
-                        <end-workout-modal id="endWorkoutModal"
-                                           @add-to-day-list="addToDayList"
-                        ></end-workout-modal>
-                    </div>
-                </td>
-            </tr>
-            </thead>
-        </table>
+        <div class="row g-3">
+            <div class="col text-center">
+                <q-btn no-caps color="grey" class="btn-end-workout" padding="xs xl"
+                       data-bs-toggle="modal" data-bs-target="#endWorkoutModal">End Workout
+                </q-btn>
+            </div>
+
+            <end-workout-modal id="endWorkoutModal"
+                               @add-review="addReview"
+            ></end-workout-modal>
+        </div>
     </div>
 </div>
 
@@ -87,6 +79,7 @@
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quasar@2.15.1/dist/quasar.umd.prod.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/components/editExerciseModal.js"></script>
 <script src="assets/js/components/addExerciseModal.js"></script>
@@ -96,6 +89,7 @@
 <script src="https://kit.fontawesome.com/35954a5375.js" crossorigin="anonymous"></script>
 <script>
     // start the app after all the other JS has been loaded
+    app.use(Quasar);
     app.mount('#app');
 </script>
 </body>

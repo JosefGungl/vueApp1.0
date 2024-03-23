@@ -56,8 +56,9 @@ app.component('EditExerciseModal', {
                           <!-- delete set button -->
                           <div class="col-sm-3">
                             Set: {{ i + 1 }}
-                            <button class="btn"><i @click="deleteSet(i)" type="button"
-                                                   class="fa-solid fa-circle-minus fa-xl"></i></button>
+
+                            <q-btn @click="deleteSet(i)" round flat padding="xs"
+                                   icon="fa-solid fa-circle-minus"></q-btn>
                           </div>
                           <!-- reps -->
                           <div class="col-sm-3">
@@ -77,8 +78,7 @@ app.component('EditExerciseModal', {
                         </div>
                         <div class="row g-3 flex-row justify-content-center align-items-center">
                           <div class="col-sm-3">
-                            <button class="btn"><i type="button" @click="addSet"
-                                                   class="fa-solid fa-circle-plus fa-2xl"></i></button>
+                            <q-btn @click="addSet" round flat padding="xs" icon="fa-solid fa-circle-plus"></q-btn>
                           </div>
                         </div>
                       </div>
@@ -88,13 +88,15 @@ app.component('EditExerciseModal', {
                 </table>
               </div>
               <div class="modal-footer justify-content-center">
-                <button type="submit" @click="saveExercise" class="btn btn-save btn-primary" data-bs-dismiss="modal">
+                <q-btn no-caps text-color="white" type="submit" @click="saveExercise" class="btn-save"
+                       data-bs-dismiss="modal" padding="xs xl">
                   Save
-                </button>
-                <button type="submit" @click="deleteExercise(exercise.id)" class="btn btn-danger"
-                        data-bs-dismiss="modal">Delete Exercise
-                </button>
-              </div>
+                </q-btn>
+
+                <q-btn no-caps type="submit" @click="deleteExercise(exercise.id)" color="red"
+                       data-bs-dismiss="modal" padding="xs xl">Delete Exercise
+                </q-btn>
+              </div> 
             </div>
           </div>
         </form>

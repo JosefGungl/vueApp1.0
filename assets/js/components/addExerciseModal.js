@@ -86,13 +86,12 @@ app.component('AddExerciseModal', {
                         </div>
                         <div class="row g-3 flex-row justify-content-start align-items-center pt-2">
                           <div class="col-sm-auto">
-                            <button type="button" v-on:click="newExercise.sets ++" class="btn btn-secondary">Add Set
-                            </button>
+                            <q-btn no-caps v-on:click="newExercise.sets ++" color="grey" padding="xs xl">Add Set</q-btn>
                           </div>
                           <div class="col-sm-auto">
-                            <button type="button" v-if="newExercise.sets !== 0" @click="removeSet(newExercise)"
-                                    class="btn btn-secondary">Remove Set
-                            </button>
+                            <q-btn no-caps v-if="newExercise.sets !== 0" @click="removeSet(newExercise)" 
+                                   color="grey" padding="xs xl">Remove Set
+                            </q-btn>
                           </div>
                         </div>
                       </div>
@@ -102,7 +101,7 @@ app.component('AddExerciseModal', {
                 </table>
               </div>
               <div class="modal-footer justify-content-center">
-                <button type="submit" class="btn btn-save btn-primary" data-bs-dismiss="modal">Save</button>
+                <q-btn no-caps text-color="white" type="submit" class="btn-save" padding="xs xl" data-bs-dismiss="modal">Save</q-btn>
               </div>
             </div>
           </div>

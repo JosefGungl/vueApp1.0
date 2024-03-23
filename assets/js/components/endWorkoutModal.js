@@ -1,4 +1,15 @@
 app.component('EndWorkoutModal', {
+    data() {
+        return {
+            newReview: {
+                review: '',
+                rating: 0,
+                date: ''
+            },
+            ratingModel: 0
+        }
+    },
+
     props: {
         id:{
             type: String,
@@ -6,16 +17,22 @@ app.component('EndWorkoutModal', {
         }
     },
 
-    emits:['add-to-day-list'],
+    emits:['add-review'],
     methods: {
-        addToDayList(){
-            this.$emit('add-to-day-list');
+        addReview(){
+            this.newReview.rating = this.ratingModel;
+            this.$emit('add-review', this.newReview);
+            this.newReview = {
+                review: '',
+                rating: 0,
+                date: ''
+            }
         },
     },
 
     template: `
       <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + 'Title'" aria-hidden="true">
-        <form @submit.prevent="addToDayList">
+        <form @submit.prevent="addReview">
           <div class="modal-dialog">
             <div class="modal-content bg-inner">
               <div class="modal-header">
@@ -23,39 +40,36 @@ app.component('EndWorkoutModal', {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <table class="container-fluid">
-                  <tbody>
-                  <tr>
-                    <td>
-                      <div class="col-md-7 col-lg-8">
-                        <div class="row g-3">
-                          <div class="col-sm-12">
-                            <div class="row">
-                              <div class="col">
-                                <label for="workout-rating" class="form-label">Workout rating:</label>
-                              </div>
-                              <div class="col slider-screen">0</div>
-                            </div>
-
-                            <input id="workout-rating" type="range" class="form-range"
-                                   min="0" max="5" step="0.5" value="0">
-                          </div>
-                        </div>
-                        <div class="row g-3">
-                          <!-- review box -->
-                          <div class="col-sm-12">
-                            <label for="review" class="form-label">review:</label>
-                            <textarea id="review" class="form-control"></textarea>
-                          </div>
-                        </div>
+                Rating: {{ ratingModel }}
+                <div class="q-pa-md">
+                  <div class="d-flex align-items-center">
+                    <template v-for="i in 5">
+                      <div class="q-rating__icon-container flex flex-center">
+                        <i class="q-icon notranslate material-icons q-rating__icon text-orange"
+                           :class="{'text-orange': i <= ratingModel, 'text-grey': i > ratingModel}"
+                           @click="ratingModel = i"
+                           :key="i"
+                           style="font-size: 3.5em;"
+                        >
+                          star
+                        </i>
                       </div>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="modal-footer justify-content-center">
-                <button type="submit" @click="addToDayList" class="btn btn-save btn-primary">Save</button>
+                    </template>
+                  </div>
+                </div>
+                <div class="row q-pt-xl q-pl-md">
+                  Review:
+                  <div class="q-pl-lg q-pt-md justify-center ">
+                    <q-input
+                        v-model="newReview.review"
+                        filled
+                        autogrow
+                    />
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                  <q-btn no-caps text-color="white" type="submit" class="btn-save" padding="xs xl" data-bs-dismiss="modal">Save</q-btn>
+                </div>
               </div>
             </div>
           </div>
