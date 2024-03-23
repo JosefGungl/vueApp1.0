@@ -1,15 +1,13 @@
 const app = Vue.createApp({
-
-    //all data for the app, must return an object
-    data: function () {
+    // All data for the app, must return an object
+    data() {
         return {
-            currentDay: new Date,
             exerciseList: [
-                //example data
+                // Example data
                 {
                     id: '0',
                     title: 'Bench Press',
-                    date: '2024-02-16',
+                    date: new Date('2024-02-16'),
                     sets: 3,
                     reps: [5, 5, 4],
                     weight: [225, 225, 225],
@@ -18,23 +16,22 @@ const app = Vue.createApp({
                 {
                     id: '1',
                     title: 'Incline Bench',
-                    date: '2024-02-16',
+                    date: new Date('2024-02-16'),
                     sets: 3,
                     reps: [12, 13, 10],
                     weight: [100, 100, 100],
                     finished: false
                 },
             ],
-            reviewList: [
-
-            ],
+            reviewList: [],
             dayList: [],
             selectedEditExercise: {},
-        }
+            currentDay: ''
+        };
     },
-    //methods usually events triggered by v-on
+    // Methods usually events triggered by v-on
     methods: {
-        //emitted methods
+        // Emitted methods
         addExercise(newExercise) {
             newExercise.id = String(this.exerciseList.length);
             newExercise.date = this.currentDay;
@@ -42,9 +39,11 @@ const app = Vue.createApp({
             this.dayList.push(newExercise);
         },
         deleteExercise(exerciseId) {
-            let exercise = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === exerciseId));
-            this.exerciseList.splice(exercise, 1);
-            this.dayList.splice(exercise, 1);
+            const exerciseIndex = this.exerciseList.findIndex(temp => temp.id === exerciseId);
+            if (exerciseIndex !== -1) {
+                this.exerciseList.splice(exerciseIndex, 1);
+                this.dayList.splice(exerciseIndex, 1);
+            }
         },
         saveExercise() {
             this.selectedEditExercise = {};
@@ -52,12 +51,14 @@ const app = Vue.createApp({
         addSet() {
             this.selectedEditExercise.sets++;
         },
-        deleteSet: function (set) {
-            let exerciseIndex = this.exerciseList.indexOf(this.exerciseList.find(temp => temp.id === this.selectedEditExercise.id));
-            let exercise = this.exerciseList[exerciseIndex];
-            exercise.weight.splice(set, 1);
-            exercise.reps.splice(set, 1);
-            exercise.sets--;
+        deleteSet(set) {
+            const exerciseIndex = this.exerciseList.findIndex(temp => temp.id === this.selectedEditExercise.id);
+            if (exerciseIndex !== -1) {
+                const exercise = this.exerciseList[exerciseIndex];
+                exercise.weight.splice(set, 1);
+                exercise.reps.splice(set, 1);
+                exercise.sets--;
+            }
         },
         addReview(newReview) {
             newReview.date = this.currentDay;
@@ -67,7 +68,7 @@ const app = Vue.createApp({
             this.selectedEditExercise = exercise;
         },
         editDate(edit) {
-            //TODO: increment/decrement currently selected date from buttons
+            // TODO: increment/decrement currently selected date from buttons
         },
         getCurrentDate() {
             let today = new Date();
@@ -82,8 +83,7 @@ const app = Vue.createApp({
         },
     },
 
-
-    created: function () {
+    created() {
         if (localStorage.getItem('exerciseList')) {
             this.exerciseList = JSON.parse(localStorage.getItem('exerciseList'));
         }
@@ -99,8 +99,9 @@ const app = Vue.createApp({
         },
         currentDay: {
             handler() {
-                this.dayList = this.exerciseList.filter((x) => x.date === this.currentDay);
+                this.dayList = this.exerciseList.filter(x => x.date === this.currentDay);
             }
         }
     }
 });
+
