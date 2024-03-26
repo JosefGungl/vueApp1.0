@@ -3,11 +3,11 @@ const app = Vue.createApp({
     data() {
         return {
             exerciseList: [
-                // Example data
+                // Sample data
                 {
                     id: '0',
                     title: 'Bench Press',
-                    date: new Date('2024-02-16'),
+                    date: '2024-02-16',
                     sets: 3,
                     reps: [5, 5, 4],
                     weight: [225, 225, 225],
@@ -16,15 +16,23 @@ const app = Vue.createApp({
                 {
                     id: '1',
                     title: 'Incline Bench',
-                    date: new Date('2024-02-16'),
+                    date: '2024-02-16',
                     sets: 3,
                     reps: [12, 13, 10],
                     weight: [100, 100, 100],
                     finished: false
                 },
             ],
-            reviewList: [],
+            reviewList: [
+                //Sample data
+                {
+                  review: 'test',
+                  rating: 4,
+                  date: '2024-02-16'
+                },
+            ],
             dayList: [],
+            daysReview:{},
             selectedEditExercise: {},
             currentDay: ''
         };
@@ -81,11 +89,16 @@ const app = Vue.createApp({
         updateDate(newDate) {
             this.currentDay = newDate;
         },
+        checkEmpty(review){
+            return Object.keys(review).length;
+        }
     },
 
     created() {
         if (localStorage.getItem('exerciseList')) {
             this.exerciseList = JSON.parse(localStorage.getItem('exerciseList'));
+            this.reviewList = JSON.parse(localStorage.getItem('reviewList'));
+
         }
         this.currentDay = this.getCurrentDate();
     },
@@ -94,12 +107,14 @@ const app = Vue.createApp({
         exerciseList: {
             handler() {
                 localStorage.setItem('exerciseList', JSON.stringify(this.exerciseList));
+                localStorage.setItem('reviewList', JSON.stringify(this.reviewList));
             },
             deep: true,
         },
         currentDay: {
             handler() {
                 this.dayList = this.exerciseList.filter(x => x.date === this.currentDay);
+                this.daysReview = this.reviewList.filter(x => x.date === this.currentDay);
             }
         }
     }

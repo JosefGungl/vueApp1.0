@@ -19,7 +19,7 @@ app.component('ExerciseCard', {
           <h5 class="card-title">{{ exercise.title }}</h5>
           <p v-for="(set) in exercise.sets">{{ exercise.reps[set - 1] }} reps x {{ exercise.weight[set - 1] }} lbs.</p>
           <q-btn no-caps @click="sendToEditModal(exercise)" color="grey" padding="xs xl"
-                  data-bs-toggle="modal" data-bs-target="#editExerciseModal">Edit
+                 data-bs-toggle="modal" data-bs-target="#editExerciseModal">Edit
           </q-btn>
         </div>
       </div>

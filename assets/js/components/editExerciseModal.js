@@ -4,24 +4,24 @@ app.component('EditExerciseModal', {
             type: String,
             required: true,
         },
-        exercise:{
+        exercise: {
             type: Object,
             required: true,
         }
     },
 
-    emits:['add-set', 'delete-set', 'save-exercise', 'delete-exercise'],
+    emits: ['add-set', 'delete-set', 'save-exercise', 'delete-exercise'],
     methods: {
-        addSet(){
+        addSet() {
             this.$emit('add-set');
         },
-        deleteSet(i){
+        deleteSet(i) {
             this.$emit('delete-set', i);
         },
-        saveExercise(){
+        saveExercise() {
             this.$emit('save-exercise');
         },
-        deleteExercise(id){
+        deleteExercise(id) {
             this.$emit('delete-exercise', id);
         },
     },
@@ -50,26 +50,12 @@ app.component('EditExerciseModal', {
                             <div class="invalid-feedback">Enter exercise name please.</div>
                           </div>
                         </div>
-                        <div v-for="(sets, i) in exercise.sets" :key="exercise.title"
-                             class="row g-3 flex-row justify-content-start align-items-center">
-                          <!--set info -->
-                          <!-- delete set button -->
-                          <div class="col-sm-3">
-                            Set: {{ i + 1 }}
-
-                            <q-btn @click="deleteSet(i)" round flat padding="xs"
-                                   icon="fa-solid fa-circle-minus"></q-btn>
-                          </div>
-                          <!-- reps -->
-                          <div class="col-sm-3">
-                            <label for="editSetReps" class="form-label">Reps: </label>
-                            <input id="editSetReps" type="number" class="form-control" v-model="exercise.reps[i]">
-                          </div>
-                          <!-- weight -->
-                          <div class="col-sm-4">
-                            <label for="editSetWeight" class="form-label">Weight: </label>
-                            <input id="editSetWeight" type="number" class="form-control" v-model="exercise.weight[i]">
-                          </div>
+                        <div v-for="(sets, i) in exercise.sets" :key="exercise.title">
+                          <exercise-list-item 
+                              :i="i" 
+                              :exercise="exercise"
+                              @delete-set="deleteSet"
+                          ></exercise-list-item>
                         </div>
                         <div class="row g-3 flex-row">
                           <div class="col-sm-3 pt-3">
@@ -96,7 +82,7 @@ app.component('EditExerciseModal', {
                 <q-btn no-caps type="submit" @click="deleteExercise(exercise.id)" color="red"
                        data-bs-dismiss="modal" padding="xs xl">Delete Exercise
                 </q-btn>
-              </div> 
+              </div>
             </div>
           </div>
         </form>
