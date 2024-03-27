@@ -14,7 +14,7 @@ app.component('ExerciseListItem', {
       <div class="row g-3 flex-row justify-content-start align-items-center">
         <div class="col-sm-3">
           Set: {{ i + 1 }}
-          <q-btn @click="deleteSet(i)" round flat padding="xs"
+          <q-btn @click="deleteSet(i)" @click.prevent round flat padding="xs"
                  icon="fa-solid fa-circle-minus"></q-btn>
         </div>
         <!-- reps -->

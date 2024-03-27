@@ -62,7 +62,11 @@
             <div class="col text-center justify-center" :key="daysReview">
                 <div v-if="checkEmpty(daysReview) !== 0"></div>
 
-                <review-model v-if="checkEmpty(daysReview) !== 0" :review="daysReview"> </review-model>
+                <review-model v-if="checkEmpty(daysReview) !== 0"
+                              :review="daysReview"
+                              :key="daysReview"
+                              @delete-review="deleteReview"
+                > </review-model>
                 <q-btn v-else no-caps color="grey" class="btn-end-workout" padding="xs xl"
                        data-bs-toggle="modal" data-bs-target="#endWorkoutModal">End Workout
                 </q-btn>
@@ -84,6 +88,7 @@
         crossorigin="anonymous"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/quasar@2.15.1/dist/quasar.umd.prod.js"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/components/editExerciseModal.js"></script>
 <script src="assets/js/components/addExerciseModal.js"></script>

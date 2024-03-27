@@ -46,9 +46,6 @@ app.component('AddExerciseModal', {
             }
         },
     },
-
-    //TODO: Fix modal closing on last set being removed
-    //TODO: fix modal closing if required field is empty
     template: `
       <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + 'Title'" aria-hidden="true">
         <form @submit.prevent="addExercise">

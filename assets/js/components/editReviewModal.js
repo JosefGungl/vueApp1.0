@@ -7,10 +7,16 @@ app.component('EditReviewModal', {
         id: String,
     },
 
-    //TODO: save reviews
+    emits: ['delete-review'],
+    methods:{
+      deleteReview(){
+          this.$emit('delete-review');
+      }
+    },
+
     template: `
     <div class="modal fade" :id="id" :aria-labelledby="id + review.date" tabindex="-1" aria-hidden="true">
-      <form>
+      <form @submit.prevent>
         <div class="modal-dialog">
           <div class="modal-content bg-inner">
             <div class="modal-header">
@@ -46,7 +52,12 @@ app.component('EditReviewModal', {
                 </div>
               </div>
               <div class="modal-footer justify-content-center">
-                <q-btn no-caps text-color="white" type="submit" class="btn-save" padding="xs xl" data-bs-dismiss="modal">Save</q-btn>
+                <q-btn no-caps text-color="white" type="submit" class="btn-save" 
+                       padding="xs xl" data-bs-dismiss="modal">Save
+                </q-btn>
+                <q-btn no-caps type="submit" @click="deleteReview" text-color="white" 
+                        color="red" padding="xs xl" data-bs-dismiss="modal">Delete Review
+                </q-btn>
               </div>
             </div>
           </div>

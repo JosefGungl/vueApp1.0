@@ -2,10 +2,13 @@ app.component('ReviewModel', {
     props:{
       review: Object,
     },
+    emits:['delete-review'],
     methods:{
       formatDate(reviewDate){
-          let fDate = new Date(reviewDate);
-          return fDate.toDateString();
+          return moment(reviewDate).format("dddd MMM Do YYYY");
+      },
+      deleteReview(){
+        this.$emit('delete-review');
       },
     },
 
@@ -27,6 +30,7 @@ app.component('ReviewModel', {
 
                 <edit-review-modal id="editReviewModal"
                                    :review="review[0]"
+                                   @delete-review="deleteReview"
                 ></edit-review-modal>
               </div>
             </div>
@@ -54,8 +58,5 @@ app.component('ReviewModel', {
           </div>
         </div>
       </div>
-      
-      
-      
     `
 });

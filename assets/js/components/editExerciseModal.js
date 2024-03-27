@@ -21,8 +21,8 @@ app.component('EditExerciseModal', {
         saveExercise() {
             this.$emit('save-exercise');
         },
-        deleteExercise(id) {
-            this.$emit('delete-exercise', id);
+        deleteExercise(exercise) {
+            this.$emit('delete-exercise', exercise);
         },
     },
     //TODO: Fix modal closing on last set being removed
@@ -46,7 +46,7 @@ app.component('EditExerciseModal', {
                           <!-- exercise name -->
                           <div class="col-sm-10">
                             <label for="editExerciseName" class="form-label">Exercise Name: </label>
-                            <input id="editExerciseName" type="text" class="form-control" :value="exercise.title">
+                            <input id="editExerciseName" type="text" class="form-control" v-model="exercise.title">
                             <div class="invalid-feedback">Enter exercise name please.</div>
                           </div>
                         </div>
@@ -79,7 +79,7 @@ app.component('EditExerciseModal', {
                   Save
                 </q-btn>
 
-                <q-btn no-caps type="submit" @click="deleteExercise(exercise.id)" color="red"
+                <q-btn no-caps type="submit" @click="deleteExercise(exercise)" color="red"
                        data-bs-dismiss="modal" padding="xs xl">Delete Exercise
                 </q-btn>
               </div>

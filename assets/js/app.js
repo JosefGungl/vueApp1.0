@@ -2,35 +2,8 @@ const app = Vue.createApp({
     // All data for the app, must return an object
     data() {
         return {
-            exerciseList: [
-                // Sample data
-                {
-                    id: '0',
-                    title: 'Bench Press',
-                    date: '2024-02-16',
-                    sets: 3,
-                    reps: [5, 5, 4],
-                    weight: [225, 225, 225],
-                    finished: false
-                },
-                {
-                    id: '1',
-                    title: 'Incline Bench',
-                    date: '2024-02-16',
-                    sets: 3,
-                    reps: [12, 13, 10],
-                    weight: [100, 100, 100],
-                    finished: false
-                },
-            ],
-            reviewList: [
-                //Sample data
-                {
-                  review: 'test',
-                  rating: 4,
-                  date: '2024-02-16'
-                },
-            ],
+            exerciseList: [],
+            reviewList: [],
             dayList: [],
             daysReview:{},
             selectedEditExercise: {},
@@ -41,17 +14,19 @@ const app = Vue.createApp({
     methods: {
         // Emitted methods
         addExercise(newExercise) {
-            newExercise.id = String(this.exerciseList.length);
+            newExercise.id = String(moment(this.currentDay).format() + Math.random().toString(36).substr(2));
             newExercise.date = this.currentDay;
             this.exerciseList.push(newExercise);
             this.dayList.push(newExercise);
         },
-        deleteExercise(exerciseId) {
-            const exerciseIndex = this.exerciseList.findIndex(temp => temp.id === exerciseId);
-            if (exerciseIndex !== -1) {
-                this.exerciseList.splice(exerciseIndex, 1);
-                this.dayList.splice(exerciseIndex, 1);
-            }
+        deleteExercise(exercise) {
+            this.exerciseList.splice(this.exerciseList.indexOf(exercise), 1);
+            this.dayList.splice(this.dayList.indexOf(exercise), 1);
+        },
+        deleteReview(){
+            const reviewIndex = this.reviewList.findIndex(x => x.date === this.currentDay);
+            this.reviewList.splice(reviewIndex, 1);
+            this.daysReview = {};
         },
         saveExercise() {
             this.selectedEditExercise = {};
@@ -71,20 +46,17 @@ const app = Vue.createApp({
         addReview(newReview) {
             newReview.date = this.currentDay;
             this.reviewList.push(newReview);
+            this.daysReview.push(newReview);
         },
         sendToEditModal(exercise) {
             this.selectedEditExercise = exercise;
         },
         editDate(edit) {
-            // TODO: increment/decrement currently selected date from buttons
+            this.currentDay = moment(this.currentDay).add(edit, 'days').format('YYYY[-]MM[-]DD');
         },
         getCurrentDate() {
             let today = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0');
-            let yyyy = today.getFullYear();
-            today = yyyy + '-' + mm + '-' + dd;
-            return today;
+            return moment(today).format('YYYY[-]MM[-]DD');
         },
         updateDate(newDate) {
             this.currentDay = newDate;
@@ -95,10 +67,11 @@ const app = Vue.createApp({
     },
 
     created() {
-        if (localStorage.getItem('exerciseList')) {
+        if(localStorage.getItem('exerciseList')){
             this.exerciseList = JSON.parse(localStorage.getItem('exerciseList'));
+        }
+        if(localStorage.getItem('reviewList')){
             this.reviewList = JSON.parse(localStorage.getItem('reviewList'));
-
         }
         this.currentDay = this.getCurrentDate();
     },
@@ -107,6 +80,11 @@ const app = Vue.createApp({
         exerciseList: {
             handler() {
                 localStorage.setItem('exerciseList', JSON.stringify(this.exerciseList));
+            },
+            deep: true,
+        },
+        reviewList: {
+            handler() {
                 localStorage.setItem('reviewList', JSON.stringify(this.reviewList));
             },
             deep: true,
