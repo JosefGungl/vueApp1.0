@@ -3,16 +3,14 @@ const app = Vue.createApp({
     data() {
         return {
             exerciseList: [],
+            dayList:[],
             reviewList: [],
-            dayList: [],
             daysReview:{},
             selectedEditExercise: {},
             currentDay: ''
         };
     },
-    // Methods usually events triggered by v-on
     methods: {
-        // Emitted methods
         addExercise(newExercise) {
             newExercise.id = String(moment(this.currentDay).format() + Math.random().toString(36).substr(2));
             newExercise.date = this.currentDay;
@@ -23,10 +21,9 @@ const app = Vue.createApp({
             this.exerciseList.splice(this.exerciseList.indexOf(exercise), 1);
             this.dayList.splice(this.dayList.indexOf(exercise), 1);
         },
-        deleteReview(){
-            const reviewIndex = this.reviewList.findIndex(x => x.date === this.currentDay);
-            this.reviewList.splice(reviewIndex, 1);
-            this.daysReview = {};
+        deleteReview(review){
+            this.reviewList.splice(this.reviewList.indexOf(review), 1);
+            this.daysReview.pop();
         },
         saveExercise() {
             this.selectedEditExercise = {};
@@ -46,7 +43,8 @@ const app = Vue.createApp({
         addReview(newReview) {
             newReview.date = this.currentDay;
             this.reviewList.push(newReview);
-            this.daysReview.push(newReview);
+            this.daysReview = newReview;
+
         },
         sendToEditModal(exercise) {
             this.selectedEditExercise = exercise;
@@ -97,4 +95,3 @@ const app = Vue.createApp({
         }
     }
 });
-

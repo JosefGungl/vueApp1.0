@@ -1,4 +1,4 @@
-app.component('ReviewModel', {
+app.component('ReviewSection', {
     props:{
       review: Object,
     },
@@ -24,7 +24,7 @@ app.component('ReviewModel', {
                 </h5>
               </div>
               <div class="col col-2 justify-end text-end">
-                <q-btn type="button" no-caps color="grey" data-bs-toggle="modal"
+                <q-btn type="button" no-caps color="grey" data-bs-toggle="modal" class="btn-add"
                        data-bs-target="#editReviewModal">Edit Review
                 </q-btn>
 

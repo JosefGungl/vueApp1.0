@@ -62,11 +62,11 @@
             <div class="col text-center justify-center" :key="daysReview">
                 <div v-if="checkEmpty(daysReview) !== 0"></div>
 
-                <review-model v-if="checkEmpty(daysReview) !== 0"
+                <review-section v-if="checkEmpty(daysReview) !== 0"
                               :review="daysReview"
                               :key="daysReview"
                               @delete-review="deleteReview"
-                > </review-model>
+                > </review-section>
                 <q-btn v-else no-caps color="grey" class="btn-end-workout" padding="xs xl"
                        data-bs-toggle="modal" data-bs-target="#endWorkoutModal">End Workout
                 </q-btn>
@@ -93,15 +93,21 @@
 <script src="assets/js/components/editExerciseModal.js"></script>
 <script src="assets/js/components/addExerciseModal.js"></script>
 <script src="assets/js/components/endWorkoutModal.js"></script>
-<script src="assets/js/components/exerciseCard.js"></script>
 <script src="assets/js/components/dateBar.js"></script>
 <script src="assets/js/components/exerciseListItem.js"></script>
-<script src="assets/js/components/reviewModel.js"></script>
+<script src="assets/js/components/reviewSection.js"></script>
 <script src="assets/js/components/editReviewModal.js"></script>
+<script src="assets/js/components/exerciseCard.js"></script>
 <script src="https://kit.fontawesome.com/35954a5375.js" crossorigin="anonymous"></script>
 <script>
     // start the app after all the other JS has been loaded
-    app.use(Quasar);
+    app.use(Quasar,{
+        config:{
+            brand:{
+                primary: '#689689',
+            }
+        }
+    });
     app.mount('#app');
 </script>
 </body>

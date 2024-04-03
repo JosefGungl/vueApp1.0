@@ -28,7 +28,7 @@ app.component('EditExerciseModal', {
     //TODO: Fix modal closing on last set being removed
 
     template: `
-      <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + exercise.title" aria-hidden="true">
+      <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id + exercise.name" aria-hidden="true">
         <form @submit.prevent="deleteSet, addSet">
           <div class="modal-dialog">
             <div class="modal-content bg-inner">
@@ -42,29 +42,33 @@ app.component('EditExerciseModal', {
                   <tr>
                     <td class="justify-content-center">
                       <div class="col-md-7 col-lg-8 flex-column">
-                        <div class="row g-3">
+                        <div class="row g-3 q-pa-sm">
                           <!-- exercise name -->
-                          <div class="col-sm-10">
-                            <label for="editExerciseName" class="form-label">Exercise Name: </label>
-                            <input id="editExerciseName" type="text" class="form-control" v-model="exercise.title">
+                          <div class="col-sm-1"></div>
+                          <div class="col-sm-9">
+                            <q-input rounded outlined v-model="exercise.title" label="Exercise Name"
+                                     
+                            ></q-input>
                             <div class="invalid-feedback">Enter exercise name please.</div>
                           </div>
                         </div>
-                        <div v-for="(sets, i) in exercise.sets" :key="exercise.title">
-                          <exercise-list-item 
-                              :i="i" 
-                              :exercise="exercise"
-                              @delete-set="deleteSet"
-                          ></exercise-list-item>
-                        </div>
-                        <div class="row g-3 flex-row">
-                          <div class="col-sm-3 pt-3">
-
+                        <div >
+                          <div v-for="(sets, i) in exercise.sets" :key="exercise.title">
+                            <exercise-list-item
+                                :i="i"
+                                :exercise="exercise"
+                                @delete-set="deleteSet"
+                            ></exercise-list-item>
                           </div>
-                        </div>
-                        <div class="row g-3 flex-row justify-content-center align-items-center">
-                          <div class="col-sm-3">
-                            <q-btn @click="addSet" round flat padding="xs" icon="fa-solid fa-circle-plus"></q-btn>
+                          <div class="row g-3 flex-row">
+                            <div class="col-sm-3 pt-3">
+
+                            </div>
+                          </div>
+                          <div class="row g-3 flex-row justify-content-center align-items-center">
+                            <div class="col-sm-3">
+                              <q-btn @click="addSet" round flat padding="xs" icon="fa-solid fa-circle-plus"></q-btn>
+                            </div>
                           </div>
                         </div>
                       </div>

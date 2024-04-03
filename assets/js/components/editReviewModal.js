@@ -9,8 +9,8 @@ app.component('EditReviewModal', {
 
     emits: ['delete-review'],
     methods:{
-      deleteReview(){
-          this.$emit('delete-review');
+      deleteReview(review){
+          this.$emit('delete-review', review);
       }
     },
 
@@ -55,7 +55,7 @@ app.component('EditReviewModal', {
                 <q-btn no-caps text-color="white" type="submit" class="btn-save" 
                        padding="xs xl" data-bs-dismiss="modal">Save
                 </q-btn>
-                <q-btn no-caps type="submit" @click="deleteReview" text-color="white" 
+                <q-btn no-caps type="submit" @click="deleteReview(this.review)" text-color="white" 
                         color="red" padding="xs xl" data-bs-dismiss="modal">Delete Review
                 </q-btn>
               </div>
